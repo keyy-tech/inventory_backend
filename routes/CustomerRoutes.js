@@ -5,7 +5,8 @@ const {
     getAllCustomers,
     getCustomerById,
     updateCustomer,
-    deleteCustomer
+    deleteCustomer,
+    bulkWriteCustomers,
 } = require('../controllers/CustomersController');
 const authenticateUser = require('../middleware/authMiddleware'); // Import the authentication middleware
 
@@ -23,5 +24,8 @@ router.put('/customers/:id', authenticateUser, updateCustomer);
 
 // Route to delete a customer by ID (protected)
 router.delete('/customers/:id', authenticateUser, deleteCustomer);
+
+// Route to perform bulk write operations on customers (protected)
+router.post('/customers/bulk', authenticateUser, bulkWriteCustomers);
 
 module.exports = router;

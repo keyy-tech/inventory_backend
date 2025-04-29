@@ -129,19 +129,17 @@ const deleteProduct = async (req, res) => {
     }
 };
 
-// Bulk write products
+// Bulk write products (insert only)
 const bulkWriteProducts = async (req, res) => {
     try {
         const operations = req.body.map((product) => {
-            if (!product.sku) {
-                throw new Error('Each product must have an SKU for bulk operations.');
+            if (!product.sku || !product.name || !product.price || !product.quantity_in_stock) {
+                throw new Error('Each product must have an SKU, name, price, and quantity_in_stock for bulk insert operations.');
             }
 
             return {
-                updateOne: {
-                    filter: {sku: product.sku}, // Match by SKU
-                    update: {$set: product}, // Update fields
-                    upsert: true, // Insert if not found
+                insertOne: {
+                    document: product, // Insert the product as a new document
                 },
             };
         });
@@ -149,7 +147,7 @@ const bulkWriteProducts = async (req, res) => {
         const result = await Product.bulkWrite(operations);
 
         res.status(200).json({
-            message: 'Bulk operation completed successfully.',
+            message: 'Bulk insert operation completed successfully.',
             result,
         });
     } catch (error) {

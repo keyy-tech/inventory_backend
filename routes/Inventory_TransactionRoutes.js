@@ -5,9 +5,9 @@ const {
     getAllTransactions,
     getTransactionById,
     updateTransaction,
-    deleteTransaction
+    deleteTransaction,
 } = require('../controllers/Inventory_TransactionController');
-const authenticateUser = require('../middleware/authMiddleware'); // Import the authentication middleware
+const authenticateUser = require('../middleware/authMiddleware');
 
 // Route to create a new inventory transaction (protected)
 router.post('/inventory-transactions', authenticateUser, createTransaction);

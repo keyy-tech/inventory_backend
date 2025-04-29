@@ -5,7 +5,7 @@ const {
     getAllOrders,
     getOrderById,
     updateOrder,
-    deleteOrder
+    deleteOrder,
 } = require('../controllers/OrdersController');
 const authenticateUser = require('../middleware/authMiddleware'); // Import the authentication middleware
 

@@ -78,10 +78,36 @@ const deleteCustomer = async (req, res) => {
     }
 };
 
+const bulkWriteCustomers = async (req, res) => {
+    try {
+        const operations = req.body.map((customer) => {
+            if (!customer.name || !customer.contact_info || !customer.contact_info.phone || !customer.contact_info.email) {
+                throw new Error('Each customer must have a name and valid contact information for bulk insert operations.');
+            }
+
+            return {
+                insertOne: {
+                    document: customer, // Insert the customer as a new document
+                },
+            };
+        });
+
+        const result = await Customer.bulkWrite(operations);
+
+        res.status(200).json({
+            message: 'Bulk insert operation completed successfully.',
+            result,
+        });
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+};
+
 module.exports = {
     createCustomer,
     getAllCustomers,
     getCustomerById,
     updateCustomer,
     deleteCustomer,
+    bulkWriteCustomers,
 };
