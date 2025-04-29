@@ -49,6 +49,17 @@ const productSchema = new mongoose.Schema(
     }
 );
 
+// Create indexes to optimize search and filter queries
+productSchema.index({name: 1}); // Index for product name
+productSchema.index({category: 1}); // Index for category
+productSchema.index({sku: 1}); // Index for SKU (unique field)
+productSchema.index({supplier_id: 1}); // Index for supplier_id
+productSchema.index({price: 1}); // Index for price (if you filter or sort by price)
+productSchema.index({status: 1}); // Index for product status (Active/Discontinued)
+
+// Optional: Create a text index for full-text search on name and description
+productSchema.index({name: 'text', description: 'text'});
+
 // Create the product model
 const Product = mongoose.model('Product', productSchema);
 
