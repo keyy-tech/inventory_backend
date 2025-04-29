@@ -116,6 +116,7 @@ const orderRoutes = require('./routes/OrderRoutes');
 const inventoryTransactionRoutes = require('./routes/Inventory_TransactionRoutes');
 const purchaseOrderRoutes = require('./routes/PurchaseOrderRoutes');
 const paymentRoutes = require('./routes/PaymentRoutes');
+const auditLogRoutes = require('./routes/AuditLogRoutes');
 
 // Mount routes with proper namespaces
 app.use('/api/products', authenticateToken, productRoutes);
@@ -125,6 +126,7 @@ app.use('/api/orders', authenticateToken, orderRoutes);
 app.use('/api/inventory-transactions', authenticateToken, inventoryTransactionRoutes);
 app.use('/api/purchase-orders', authenticateToken, purchaseOrderRoutes);
 app.use('/api/payments', authenticateToken, paymentRoutes);
+app.use('/api/audit-logs', authenticateToken, auditLogRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
