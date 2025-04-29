@@ -1,4 +1,6 @@
 const Product = require('../models/Products');
+const paginate = require('../services/pagination');
+const buildQuery = require('../services/filtering');
 
 // Create a new product
 const createProduct = async (req, res) => {
@@ -35,11 +37,30 @@ const createProduct = async (req, res) => {
     }
 };
 
-// Get all products
+// Get all products with filtering, sorting, and pagination
 const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find().populate('supplier_id', 'name contact_info');
-        res.status(200).json(products);
+        const {skip, limit} = paginate(req.query);
+        const {filter, sort} = buildQuery(req.query);
+
+        // Fetch filtered, sorted, and paginated products
+        const products = await Product.find(filter)
+            .skip(skip)
+            .limit(limit)
+            .populate('supplier_id', 'name contact_info')
+            .sort(sort);
+
+        // Get total count for pagination metadata
+        const totalProducts = await Product.countDocuments(filter);
+
+        res.status(200).json({
+            data: products,
+            meta: {
+                total: totalProducts,
+                page: Math.ceil(skip / limit) + 1,
+                pageSize: limit,
+            },
+        });
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -108,10 +129,103 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+// Bulk write products
+const bulkWriteProducts = async (req, res) => {
+    try {
+        const operations = req.body.map((product) => {
+            if (!product.sku) {
+                throw new Error('Each product must have an SKU for bulk operations.');
+            }
+
+            return {
+                updateOne: {
+                    filter: {sku: product.sku}, // Match by SKU
+                    update: {$set: product}, // Update fields
+                    upsert: true, // Insert if not found
+                },
+            };
+        });
+
+        const result = await Product.bulkWrite(operations);
+
+        res.status(200).json({
+            message: 'Bulk operation completed successfully.',
+            result,
+        });
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+};
+
+// Advanced querying and aggregation
+const advancedQueryProducts = async (req, res) => {
+    try {
+        const {category, minPrice, maxPrice, groupBy, sortBy} = req.query;
+
+        // Build aggregation pipeline
+        const pipeline = [];
+
+        // Filtering stage
+        const matchStage = {};
+        if (category) matchStage.category = category;
+        if (minPrice || maxPrice) {
+            matchStage.price = {};
+            if (minPrice) matchStage.price.$gte = parseFloat(minPrice);
+            if (maxPrice) matchStage.price.$lte = parseFloat(maxPrice);
+        }
+        if (Object.keys(matchStage).length > 0) {
+            pipeline.push({$match: matchStage});
+        }
+
+        // Grouping stage
+        if (groupBy) {
+            pipeline.push({
+                $group: {
+                    _id: `$${groupBy}`, // Group by the specified field
+                    totalProducts: {$sum: 1},
+                    averagePrice: {$avg: '$price'},
+                    totalStock: {$sum: '$quantity_in_stock'},
+                },
+            });
+        }
+
+        // Sorting stage
+        if (sortBy) {
+            const sortFields = {};
+            sortBy.split(',').forEach((field) => {
+                const order = field.startsWith('-') ? -1 : 1;
+                const fieldName = field.replace(/^-/, '');
+                sortFields[fieldName] = order;
+            });
+            pipeline.push({$sort: sortFields});
+        }
+
+        // Projection stage (optional)
+        pipeline.push({
+            $project: {
+                _id: 0, // Exclude the `_id` field
+                group: '$_id',
+                totalProducts: 1,
+                averagePrice: 1,
+                totalStock: 1,
+            },
+        });
+
+        // Execute aggregation pipeline
+        const result = await Product.aggregate(pipeline);
+
+        res.status(200).json({data: result});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+};
+
 module.exports = {
     createProduct,
     getAllProducts,
     getProductById,
     updateProduct,
     deleteProduct,
+    bulkWriteProducts,
+    advancedQueryProducts,
 };
