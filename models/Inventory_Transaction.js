@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const withAuditHooks = require('../utils/AuditHooks');
 
 // Define the inventory transaction schema
 const InventoryTransactionSchema = new mongoose.Schema(
@@ -37,8 +36,6 @@ const InventoryTransactionSchema = new mongoose.Schema(
     }
 );
 
-// Apply audit hooks to the inventory transaction schema
-withAuditHooks(InventoryTransactionSchema, 'InventoryTransaction');
 
 // Create the inventory transaction model
 const InventoryTransaction = mongoose.model('InventoryTransaction', InventoryTransactionSchema);

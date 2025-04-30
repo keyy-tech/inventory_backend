@@ -1,6 +1,5 @@
 // Connecting the MongoDB
 const mongoose = require('mongoose');
-const withAuditHooks = require('../utils/AuditHooks');
 
 // Define the supplier schema
 const supplierSchema = new mongoose.Schema(
@@ -37,8 +36,6 @@ const supplierSchema = new mongoose.Schema(
     }
 );
 
-// Add audit hooks to the supplier schema
-withAuditHooks(supplierSchema, 'Supplier');
 
 // Create the supplier model
 const Supplier = mongoose.model('Supplier', supplierSchema);
