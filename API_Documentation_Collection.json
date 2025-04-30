@@ -14,6 +14,16 @@
 				{
 					"name": "Register User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTI0NmZiNGFkNTZiOWRkZDI2NGE5NiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjAyODMwNiwiZXhwIjoxNzQ2MDMxOTA2fQ._yrGLNU4gB74ZLfEHYj-vDMFqRJxy7ONIhnPWkUBD7k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -23,7 +33,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"name\": \"John Doe\",\n  \"phone\": \"1234567890\",\n  \"address\": \"123 Main St\",\n  \"role\": \"Admin\"\n}"
+							"raw": "{\n  \"username\": \"jeslyn\",\n  \"email\": \"jeslynbrentumi@gmail.com\",\n  \"password\": \"password123\",\n  \"name\": \"Jeslyn Brentumi\",\n  \"phone\": \"0543459208\",\n  \"address\": \"Accra\",\n  \"role\": \"Staff\"\n}"
 						},
 						"url": {
 							"raw": "localhost:5000/api/auth/register",
@@ -47,7 +57,22 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"// Retrieve the bearer token from the environment variable\r",
+									"var token = pm.environment.get(\"bearer_token\");\r",
+									"\r",
+									"// Check if the token exists\r",
+									"if (token) {\r",
+									"    // Set the Authorization header with Bearer token\r",
+									"    pm.request.headers.add({\r",
+									"        key: \"Authorization\",\r",
+									"        value: \"Bearer \" + token\r",
+									"    });\r",
+									"} else {\r",
+									"    console.log(\"No bearer token found in the environment.\");\r",
+									"    // Save a default or placeholder token to the environment variable\r",
+									"    pm.environment.set(\"bearer_token\", \"default_placeholder_token\");\r",
+									"    console.log(\"Default bearer token has been saved to the environment.\");\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -423,7 +448,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/products?name=Keyboard",
+							"raw": "http://localhost:5000/api/products?name=New Product",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -436,7 +461,7 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "Keyboard"
+									"value": "New Product"
 								}
 							]
 						}
@@ -454,8 +479,44 @@
 				{
 					"name": "Sorting Products",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTI0NmZiNGFkNTZiOWRkZDI2NGE5NiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjAyODMwNiwiZXhwIjoxNzQ2MDMxOTA2fQ._yrGLNU4gB74ZLfEHYj-vDMFqRJxy7ONIhnPWkUBD7k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/products?sort=price&limit=5&page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "price"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -467,6 +528,16 @@
 				{
 					"name": "Create Customer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTI0NmZiNGFkNTZiOWRkZDI2NGE5NiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjAyODMwNiwiZXhwIjoxNzQ2MDMxOTA2fQ._yrGLNU4gB74ZLfEHYj-vDMFqRJxy7ONIhnPWkUBD7k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -499,6 +570,16 @@
 				{
 					"name": "Get All Customers",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTI0NmZiNGFkNTZiOWRkZDI2NGE5NiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjAyODMwNiwiZXhwIjoxNzQ2MDMxOTA2fQ._yrGLNU4gB74ZLfEHYj-vDMFqRJxy7ONIhnPWkUBD7k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
