@@ -26,6 +26,18 @@ const userSchema = new mongoose.Schema(
             type: Boolean,
             default: true
         },
+        name: {
+            type: String,
+            required: true
+        },
+        phone: {
+            type: String,
+            required: true
+        },
+        address: {
+            type: String,
+            required: true
+        }
     },
     {
         timestamps: true, // Adds createdAt and updatedAt fields

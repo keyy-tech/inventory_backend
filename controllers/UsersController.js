@@ -5,13 +5,13 @@ const jwt = require('jsonwebtoken');
 // Register a new user
 exports.registerUser = async (req, res) => {
     try {
-        const {username, email, password, role} = req.body;
+        const {username, email, password, role, name, phone, address} = req.body;
 
         // Hash the password before saving to the database
         const hashedPassword = await bcrypt.hash(password, 10); // Salt rounds = 10
 
         // Create the new user with the hashed password
-        const user = new User({username, email, password: hashedPassword, role});
+        const user = new User({username, email, password: hashedPassword, role, name, phone, address});
 
         // Save the user to the database
         await user.save();
