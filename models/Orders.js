@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const withAuditHooks = require('../utils/AuditHooks');
 
 // Define the order schema
 const OrderSchema = new mongoose.Schema(
@@ -53,6 +54,10 @@ const OrderSchema = new mongoose.Schema(
         versionKey: false,
     }
 );
+
+// Add audit hooks to the order schema
+withAuditHooks(OrderSchema, 'Order');
+
 
 // Create the order model
 const Order = mongoose.model('Order', OrderSchema);

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const withAuditHooks = require('../utils/AuditHooks');
 
 // Define the payment schema
 const PaymentSchema = new mongoose.Schema(
@@ -32,6 +33,9 @@ const PaymentSchema = new mongoose.Schema(
         versionKey: false,
     }
 );
+
+// Apply audit hooks to the payment schema
+withAuditHooks(PaymentSchema, 'Payment');
 
 // Create the payment model
 const Payment = mongoose.model('Payment', PaymentSchema);

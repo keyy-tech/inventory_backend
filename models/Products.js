@@ -1,5 +1,6 @@
 // Connecting to MongoDB
 const mongoose = require('mongoose');
+const withAuditHooks = require('../utils/AuditHooks');
 
 // Define the product schema
 const productSchema = new mongoose.Schema(
@@ -59,6 +60,9 @@ productSchema.index({status: 1}); // Index for product status (Active/Discontinu
 
 // Optional: Create a text index for full-text search on name and description
 productSchema.index({name: 'text', description: 'text'});
+
+// Add the audit hooks to the product schema
+withAuditHooks(productSchema, 'Product');
 
 // Create the product model
 const Product = mongoose.model('Product', productSchema);
