@@ -1,5 +1,6 @@
 // Connecting to MongoDB
 const mongoose = require('mongoose');
+const withAuditHooks = require('../utils/AuditHooks');
 
 // Define the customer schema
 const customerSchema = new mongoose.Schema(
@@ -34,6 +35,9 @@ const customerSchema = new mongoose.Schema(
         versionKey: false,
     }
 );
+
+// Add audit hooks to the customer schema
+withAuditHooks(customerSchema, 'Customer');
 
 // Create the customer model
 const Customer = mongoose.model('Customer', customerSchema);

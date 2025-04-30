@@ -5,6 +5,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const User = require('./models/Users'); // Import the User model
 
 // Initialize the app
 const app = express();
@@ -43,7 +44,6 @@ const authenticateToken = (req, res, next) => {
 
     const token = authHeader.split(' ')[1];
     try {
-        // Use the same JWT_SECRET across your app
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
@@ -52,50 +52,72 @@ const authenticateToken = (req, res, next) => {
     }
 };
 
-// In-memory user storage (replace with a database in production)
-const users = [];
-
 // Authentication Routes
 app.post('/api/auth/register', async (req, res) => {
     const {username, email, password} = req.body;
 
-    // Check if user already exists
-    const existingUser = users.find((user) => user.email === email);
-    if (existingUser) {
-        return res.status(400).json({message: 'User already exists.'});
+    try {
+        // Check if user already exists
+        const existingUser = await User.findOne({email});
+        if (existingUser) {
+            return res.status(400).json({message: 'User already exists.'});
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Save user to the database
+        const newUser = new User({username, email, password: hashedPassword});
+        await newUser.save();
+
+        res.status(201).json({message: 'User registered successfully.'});
+    } catch (err) {
+        res.status(500).json({error: err.message});
     }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Save user
-    const newUser = {id: Date.now(), username, email, password: hashedPassword};
-    users.push(newUser);
-
-    res.status(201).json({message: 'User registered successfully.'});
 });
 
 app.post('/api/auth/login', async (req, res) => {
     const {email, password} = req.body;
 
-    // Find user
-    const user = users.find((user) => user.email === email);
-    if (!user) {
-        return res.status(404).json({message: 'User not found.'});
+    try {
+        // Find user in the database
+        const user = await User.findOne({email});
+        if (!user) {
+            return res.status(404).json({message: 'User not found.'});
+        }
+
+        // Compare password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({message: 'Invalid credentials.'});
+        }
+
+        // Generate JWT
+        const token = jwt.sign(
+            {id: user._id, role: user.role},
+            process.env.JWT_SECRET,
+            {expiresIn: '1h'}
+        );
+
+        res.status(200).json({message: 'Login successful.', token});
+    } catch (err) {
+        res.status(500).json({error: err.message});
     }
+});
 
-    // Compare password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        return res.status(401).json({message: 'Invalid credentials.'});
+// Profile Route
+app.get('/api/auth/profile', authenticateToken, async (req, res) => {
+    try {
+        // Fetch the authenticated user's details
+        const user = await User.findById(req.user.id).select('-password'); // Exclude the password field
+        if (!user) {
+            return res.status(404).json({message: 'User not found.'});
+        }
+
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({error: err.message});
     }
-
-    // Generate JWT
-    const token = jwt.sign({id: user.id, email: user.email}, process.env.JWT_SECRET, {
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRY || '1h',
-    });
-
-    res.status(200).json({message: 'Login successful.', token});
 });
 
 // Test route
@@ -119,14 +141,14 @@ const paymentRoutes = require('./routes/PaymentRoutes');
 const auditLogRoutes = require('./routes/AuditLogRoutes');
 
 // Mount routes with proper namespaces
-app.use('/api/products', authenticateToken, productRoutes);
-app.use('/api/suppliers', authenticateToken, supplierRoutes);
-app.use('/api/customers', authenticateToken, customerRoutes);
-app.use('/api/orders', authenticateToken, orderRoutes);
-app.use('/api/inventory-transactions', authenticateToken, inventoryTransactionRoutes);
-app.use('/api/purchase-orders', authenticateToken, purchaseOrderRoutes);
-app.use('/api/payments', authenticateToken, paymentRoutes);
-app.use('/api/audit-logs', authenticateToken, auditLogRoutes);
+app.use('/api', authenticateToken, productRoutes);
+app.use('/api', authenticateToken, supplierRoutes);
+app.use('/api', authenticateToken, customerRoutes);
+app.use('/api', authenticateToken, orderRoutes);
+app.use('/api', authenticateToken, inventoryTransactionRoutes);
+app.use('/api', authenticateToken, purchaseOrderRoutes);
+app.use('/api', authenticateToken, paymentRoutes);
+app.use('/api/', authenticateToken, auditLogRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
