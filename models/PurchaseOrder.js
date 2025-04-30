@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const withAuditHooks = require('../utils/AuditHooks');
 
 // Define the purchase order schema
 const PurchaseOrderSchema = new mongoose.Schema(
@@ -45,9 +44,6 @@ const PurchaseOrderSchema = new mongoose.Schema(
         versionKey: false,
     }
 );
-
-// Apply audit hooks to the purchase order schema
-withAuditHooks(PurchaseOrderSchema, 'PurchaseOrder');
 
 
 // Create the purchase order model
