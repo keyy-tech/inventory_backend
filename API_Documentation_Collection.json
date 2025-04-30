@@ -1,945 +1,1460 @@
 {
-  "info": {
-    "name": "Inventory Management API",
-    "_postman_id": "67890",
-    "description": "Complete API collection for Inventory Management System including all models",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Authentication",
-      "item": [
-        {
-          "name": "Register User",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"name\": \"John Doe\",\n  \"phone\": \"1234567890\",\n  \"address\": \"123 Main St\",\n  \"role\": \"Admin\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/users/register",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "users", "register"]
-            }
-          }
-        },
-        {
-          "name": "Login User",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/users/login",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "users", "login"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Users",
-      "item": [
-        {
-          "name": "Get All Users",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/users",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "users"]
-            }
-          }
-        },
-        {
-          "name": "Get User by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/users/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "users", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Update User",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"updated@example.com\",\n  \"phone\": \"9876543210\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/users/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "users", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Delete User",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/users/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "users", ":id"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Products",
-      "item": [
-        {
-          "name": "Create Product",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"New Product\",\n  \"description\": \"Product description\",\n  \"category\": \"Electronics\",\n  \"sku\": \"SKU12345\",\n  \"price\": 99.99,\n  \"quantity_in_stock\": 100,\n  \"reorder_level\": 10,\n  \"supplier_id\": \"supplier123\",\n  \"status\": \"Active\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/products",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "products"]
-            }
-          }
-        },
-        {
-          "name": "Get All Products",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "http://localhost:5000/api/products",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "products"]
-            }
-          }
-        },
-        {
-          "name": "Get Product by ID",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "http://localhost:5000/api/products/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "products", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Update Product",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"price\": 109.99,\n  \"quantity_in_stock\": 80\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/products/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "products", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Delete Product",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/products/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "products", ":id"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Customers",
-      "item": [
-        {
-          "name": "Create Customer",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Customer Name\",\n  \"contact_info\": {\n    \"phone\": \"1234567890\",\n    \"email\": \"customer@example.com\",\n    \"address\": \"123 Customer St\"\n  }\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/customers",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "customers"]
-            }
-          }
-        },
-        {
-          "name": "Get All Customers",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/customers",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "customers"]
-            }
-          }
-        },
-        {
-          "name": "Get Customer by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/customers/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "customers", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Update Customer",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"contact_info\": {\n    \"email\": \"updated@example.com\",\n    \"phone\": \"9876543210\"\n  }\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/customers/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "customers", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Delete Customer",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/customers/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "customers", ":id"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Orders",
-      "item": [
-        {
-          "name": "Create Order",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"customer_id\": \"customer123\",\n  \"total_price\": 199.98,\n  \"products\": [\n    {\n      \"product_id\": \"product123\",\n      \"quantity\": 2,\n      \"price\": 99.99\n    }\n  ]\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/orders",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "orders"]
-            }
-          }
-        },
-        {
-          "name": "Get All Orders",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/orders",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "orders"]
-            }
-          }
-        },
-        {
-          "name": "Get Order by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/orders/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "orders", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Update Order Status",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"order_status\": \"Shipped\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/orders/:id/status",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "orders", ":id", "status"]
-            }
-          }
-        },
-        {
-          "name": "Delete Order",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/orders/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "orders", ":id"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Inventory Transactions",
-      "item": [
-        {
-          "name": "Create Inventory Transaction",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"product_id\": \"product123\",\n  \"quantity\": 50,\n  \"transaction_type\": \"Purchase\",\n  \"reason\": \"Restock\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/inventory",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "inventory"]
-            }
-          }
-        },
-        {
-          "name": "Get All Inventory Transactions",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/inventory",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "inventory"]
-            }
-          }
-        },
-        {
-          "name": "Get Product Inventory",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/inventory/product/:productId",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "inventory", "product", ":productId"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Payments",
-      "item": [
-        {
-          "name": "Create Payment",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"payment_amount\": 199.98,\n  \"payment_method\": \"Credit Card\",\n  \"order_id\": \"order123\",\n  \"status\": \"Paid\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/payments",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "payments"]
-            }
-          }
-        },
-        {
-          "name": "Get Payment by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/payments/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "payments", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Get Payments for Order",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/payments/order/:orderId",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "payments", "order", ":orderId"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Suppliers",
-      "item": [
-        {
-          "name": "Create Supplier",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Supplier Inc\",\n  \"contact_info\": {\n    \"phone\": \"1234567890\",\n    \"email\": \"supplier@example.com\",\n    \"address\": \"456 Supplier Ave\"\n  },\n  \"payment_terms\": \"Net 30\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/suppliers",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "suppliers"]
-            }
-          }
-        },
-        {
-          "name": "Get All Suppliers",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/suppliers",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "suppliers"]
-            }
-          }
-        },
-        {
-          "name": "Get Supplier by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/suppliers/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "suppliers", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Update Supplier",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"contact_info\": {\n    \"email\": \"updated@example.com\"\n  }\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/suppliers/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "suppliers", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Delete Supplier",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/suppliers/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "suppliers", ":id"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Purchase Orders",
-      "item": [
-        {
-          "name": "Create Purchase Order",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"supplier_id\": \"supplier123\",\n  \"total_price\": 500.00,\n  \"products\": [\n    {\n      \"product_id\": \"product123\",\n      \"quantity\": 50,\n      \"price\": 10.00\n    }\n  ]\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/purchase-orders",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "purchase-orders"]
-            }
-          }
-        },
-        {
-          "name": "Get All Purchase Orders",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/purchase-orders",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "purchase-orders"]
-            }
-          }
-        },
-        {
-          "name": "Get Purchase Order by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/purchase-orders/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "purchase-orders", ":id"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Invoices",
-      "item": [
-        {
-          "name": "Create Invoice",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"invoiceNumber\": \"INV-2023-001\",\n  \"customer\": \"customer123\",\n  \"items\": [\n    {\n      \"product\": \"product123\",\n      \"quantity\": 2,\n      \"price\": 99.99\n    }\n  ],\n  \"totalAmount\": 199.98,\n  \"dueDate\": \"2023-12-31\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/invoices",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "invoices"]
-            }
-          }
-        },
-        {
-          "name": "Get All Invoices",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/invoices",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "invoices"]
-            }
-          }
-        },
-        {
-          "name": "Get Invoice by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/invoices/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "invoices", ":id"]
-            }
-          }
-        },
-        {
-          "name": "Update Invoice Status",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"Paid\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/invoices/:id/status",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "invoices", ":id", "status"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Notifications",
-      "item": [
-        {
-          "name": "Create Notification",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"recipient\": \"user123\",\n  \"recipientType\": \"User\",\n  \"message\": \"New order received\",\n  \"type\": \"Info\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/notifications",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "notifications"]
-            }
-          }
-        },
-        {
-          "name": "Get User Notifications",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:5000/api/notifications/user/:userId",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "notifications", "user", ":userId"]
-            }
-          }
-        },
-        {
-          "name": "Mark Notification as Read",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer <token>"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"isRead\": true\n}"
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/notifications/:id",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "notifications", ":id"]
-            }
-          }
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "e4f3c510-156e-4b7d-87f9-22d74779c2e8",
+		"name": "Inventory Management API",
+		"description": "Complete API collection for Inventory Management System including all models",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42751566",
+		"_collection_link": "https://platform-api-testing-2746.postman.co/workspace/Warehouse-Inventory~8801ef31-d14a-4605-b087-33f619b5f4f4/collection/42751566-e4f3c510-156e-4b7d-87f9-22d74779c2e8?action=share&source=collection_link&creator=42751566"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"name\": \"John Doe\",\n  \"phone\": \"1234567890\",\n  \"address\": \"123 Main St\",\n  \"role\": \"Admin\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTI0NmZiNGFkNTZiOWRkZDI2NGE5NiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjAyODMwNiwiZXhwIjoxNzQ2MDMxOTA2fQ._yrGLNU4gB74ZLfEHYj-vDMFqRJxy7ONIhnPWkUBD7k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/auth/profile",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/users",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/users/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"updated@example.com\",\n  \"phone\": \"9876543210\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/users/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/users/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTI0NmZiNGFkNTZiOWRkZDI2NGE5NiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjAyODMwNiwiZXhwIjoxNzQ2MDMxOTA2fQ._yrGLNU4gB74ZLfEHYj-vDMFqRJxy7ONIhnPWkUBD7k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"New Product\",\n  \"description\": \"Product description\",\n  \"category\": \"Electronics\",\n  \"sku\": \"SKU12345\",\n  \"price\": 99.99,\n  \"quantity_in_stock\": 100,\n  \"reorder_level\": 10,\n  \"status\": \"Active\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/products",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTI0NmZiNGFkNTZiOWRkZDI2NGE5NiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjAyODMwNiwiZXhwIjoxNzQ2MDMxOTA2fQ._yrGLNU4gB74ZLfEHYj-vDMFqRJxy7ONIhnPWkUBD7k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/products",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/products/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 109.99,\n  \"quantity_in_stock\": 80\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/products/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/products/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTI0NmZiNGFkNTZiOWRkZDI2NGE5NiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjAyODMwNiwiZXhwIjoxNzQ2MDMxOTA2fQ._yrGLNU4gB74ZLfEHYj-vDMFqRJxy7ONIhnPWkUBD7k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/products?name=Keyboard",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Keyboard"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Products",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Sorting Products",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Customer Name\",\n  \"contact_info\": {\n    \"phone\": \"1234567890\",\n    \"email\": \"customer@example.com\",\n    \"address\": \"123 Customer St\"\n  }\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/customers",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Customers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/customers",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/customers/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"customers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"contact_info\": {\n    \"email\": \"updated@example.com\",\n    \"phone\": \"9876543210\"\n  }\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/customers/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"customers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/customers/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"customers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customer_id\": \"customer123\",\n  \"total_price\": 199.98,\n  \"products\": [\n    {\n      \"product_id\": \"product123\",\n      \"quantity\": 2,\n      \"price\": 99.99\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/orders/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"order_status\": \"Shipped\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/orders/:id/status",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"orders",
+								":id",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/orders/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inventory Transactions",
+			"item": [
+				{
+					"name": "Create Inventory Transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": \"product123\",\n  \"quantity\": 50,\n  \"transaction_type\": \"Purchase\",\n  \"reason\": \"Restock\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/inventory",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Inventory Transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/inventory",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Inventory",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/inventory/product/:productId",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"inventory",
+								"product",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "Create Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_amount\": 199.98,\n  \"payment_method\": \"Credit Card\",\n  \"order_id\": \"order123\",\n  \"status\": \"Paid\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/payments",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/payments/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payments for Order",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/payments/order/:orderId",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								"order",
+								":orderId"
+							],
+							"variable": [
+								{
+									"key": "orderId"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Suppliers",
+			"item": [
+				{
+					"name": "Create Supplier",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Supplier Inc\",\n  \"contact_info\": {\n    \"phone\": \"1234567890\",\n    \"email\": \"supplier@example.com\",\n    \"address\": \"456 Supplier Ave\"\n  },\n  \"payment_terms\": \"Net 30\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/suppliers",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"suppliers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Suppliers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/suppliers",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"suppliers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Supplier by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/suppliers/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"suppliers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Supplier",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"contact_info\": {\n    \"email\": \"updated@example.com\"\n  }\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/suppliers/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"suppliers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Supplier",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/suppliers/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"suppliers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase Orders",
+			"item": [
+				{
+					"name": "Create Purchase Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"supplier_id\": \"supplier123\",\n  \"total_price\": 500.00,\n  \"products\": [\n    {\n      \"product_id\": \"product123\",\n      \"quantity\": 50,\n      \"price\": 10.00\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/purchase-orders",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"purchase-orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Purchase Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/purchase-orders",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"purchase-orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Purchase Order by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/purchase-orders/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"purchase-orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invoices",
+			"item": [
+				{
+					"name": "Create Invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceNumber\": \"INV-2023-001\",\n  \"customer\": \"customer123\",\n  \"items\": [\n    {\n      \"product\": \"product123\",\n      \"quantity\": 2,\n      \"price\": 99.99\n    }\n  ],\n  \"totalAmount\": 199.98,\n  \"dueDate\": \"2023-12-31\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Invoices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invoice by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/invoices/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"invoices",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Invoice Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"Paid\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/invoices/:id/status",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"invoices",
+								":id",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Create Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"recipient\": \"user123\",\n  \"recipientType\": \"User\",\n  \"message\": \"New order received\",\n  \"type\": \"Info\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/notifications",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/notifications/user/:userId",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"notifications",
+								"user",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Notification as Read",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"isRead\": true\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/notifications/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"notifications",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }
