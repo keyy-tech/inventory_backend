@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ['Admin', 'Staff'], // Allowed roles
-            default: 'Staff',
+            enum: ['Admin', 'Staff'],
+            default: 'Staff'
         },
         isActive: {
             type: Boolean,
@@ -28,22 +28,21 @@ const userSchema = new mongoose.Schema(
         },
         name: {
             type: String,
-            required: true
+            required: false // Make optional
         },
         phone: {
             type: String,
-            required: true
+            required: false // Make optional
         },
         address: {
             type: String,
-            required: true
+            required: false // Make optional
         }
     },
     {
-        timestamps: true, // Adds createdAt and updatedAt fields
-        versionKey: false, // Disables the __v field
+        timestamps: true,
+        versionKey: false
     }
 );
 
-// Export the User model
 module.exports = mongoose.model('User', userSchema);

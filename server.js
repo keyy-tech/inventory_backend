@@ -52,9 +52,9 @@ const authenticateToken = (req, res, next) => {
     }
 };
 
-// Authentication Routes
+/// Authentication Routes
 app.post('/api/auth/register', async (req, res) => {
-    const {username, email, password} = req.body;
+    const {username, email, password, name, phone, address, role} = req.body;
 
     try {
         // Check if user already exists
@@ -66,11 +66,19 @@ app.post('/api/auth/register', async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Save user to the database
-        const newUser = new User({username, email, password: hashedPassword});
+        // Save user to the database with all fields
+        const newUser = new User({
+            username,
+            email,
+            password: hashedPassword,
+            name,
+            phone,
+            address,
+            role
+        });
         await newUser.save();
 
-        res.status(201).json({message: 'User registered successfully.'});
+        res.status(201).json({message: 'User registered successfully.', user: newUser});
     } catch (err) {
         res.status(500).json({error: err.message});
     }

@@ -1,3 +1,4 @@
+// controllers/UsersController.js
 const User = require('../models/Users');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -6,6 +7,11 @@ const jwt = require('jsonwebtoken');
 exports.registerUser = async (req, res) => {
     try {
         const {username, email, password, role, name, phone, address} = req.body;
+
+        // Validate required fields
+        if (!username || !email || !password || !name) {
+            return res.status(400).json({error: 'Username, email, password, and name are required'});
+        }
 
         // Hash the password before saving to the database
         const hashedPassword = await bcrypt.hash(password, 10); // Salt rounds = 10
@@ -16,8 +22,9 @@ exports.registerUser = async (req, res) => {
         // Save the user to the database
         await user.save();
 
-        res.status(201).json({message: 'User registered successfully'});
+        res.status(201).json({message: 'User registered successfully', user});
     } catch (err) {
+        console.error('Error during user registration:', err.message);
         res.status(400).json({error: err.message});
     }
 };
@@ -26,6 +33,12 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
     try {
         const {email, password} = req.body;
+
+        // Validate required fields
+        if (!email || !password) {
+            return res.status(400).json({error: 'Email and password are required'});
+        }
+
         const user = await User.findOne({email});
         if (!user) return res.status(404).json({message: 'User not found'});
 
@@ -42,6 +55,7 @@ exports.loginUser = async (req, res) => {
 
         res.json({token});
     } catch (err) {
+        console.error('Error during user login:', err.message);
         res.status(500).json({error: err.message});
     }
 };
@@ -52,6 +66,7 @@ exports.updateUser = async (req, res) => {
         const {id} = req.params;
         const updates = req.body;
 
+        // Hash the password if it is being updated
         if (updates.password) {
             updates.password = await bcrypt.hash(updates.password, 10);
         }
@@ -61,6 +76,7 @@ exports.updateUser = async (req, res) => {
 
         res.json({message: 'User updated successfully', updatedUser});
     } catch (err) {
+        console.error('Error during user update:', err.message);
         res.status(400).json({error: err.message});
     }
 };
@@ -75,6 +91,7 @@ exports.listAllUsers = async (req, res) => {
         const users = await User.find();
         res.json(users);
     } catch (err) {
+        console.error('Error during listing users:', err.message);
         res.status(500).json({error: err.message});
     }
 };
@@ -92,6 +109,7 @@ exports.deleteUser = async (req, res) => {
 
         res.json({message: 'User deleted successfully'});
     } catch (err) {
+        console.error('Error during user deletion:', err.message);
         res.status(500).json({error: err.message});
     }
 };
@@ -104,6 +122,7 @@ exports.viewProfile = async (req, res) => {
 
         res.json(user);
     } catch (err) {
+        console.error('Error during viewing profile:', err.message);
         res.status(500).json({error: err.message});
     }
 };
