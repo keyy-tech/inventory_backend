@@ -471,8 +471,39 @@
 				{
 					"name": "Bulk Products",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTI0NmZiNGFkNTZiOWRkZDI2NGE5NiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjAzMzgxNywiZXhwIjoxNzQ2MDM3NDE3fQ.OABQFUy9rC4Gpr6X5vC11i_Y9yNJ25h253-BmflGc4I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"name\": \"Wireless Mouse\",\r\n    \"description\": \"Ergonomic wireless mouse with adjustable DPI\",\r\n    \"category\": \"accessories\",\r\n    \"sku\": \"ACC-MSE-003\",\r\n    \"price\": 25.99,\r\n    \"quantity_in_stock\": 200\r\n  },\r\n  {\r\n    \"name\": \"USB-C Hub\",\r\n    \"description\": \"Multi-port USB-C hub with HDMI, USB 3.0, and SD card support\",\r\n    \"category\": \"peripherals\",\r\n    \"sku\": \"PER-HUB-004\",\r\n    \"price\": 39.95,\r\n    \"quantity_in_stock\": 120\r\n  }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/products/bulk",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								"bulk"
+							]
+						}
 					},
 					"response": []
 				},
